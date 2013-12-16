@@ -1,0 +1,58 @@
+/* Created by Samuel Taylor.
+ * Copyright (c) 2012 mobiaware.com.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#import "ItemImageViewController.h"
+
+#import "AppDelegate.h"
+#import "HttpConstants.h"
+#import "NSMutableURLRequest+API.h"
+
+@interface ItemImageViewController (PrivateMethods)
+
+@end
+
+@implementation ItemImageViewController
+
+- (id)init {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self = [super initWithNibName:@"ItemImageViewController_iPhone" bundle:nil];
+    } else {
+        self = [super initWithNibName:@"ItemImageViewController_iPad" bundle:nil];
+    }
+    
+    if (self) {
+        // nothing
+    }
+
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BACK", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    [self setTitle:[NSString stringWithFormat:NSLocalizedString(@"ITEM_NUMBER", nil), [[self item] itemNumber]]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest signedRequest:[[self item] url] withParams:nil];
+    [[self webView] loadRequest:request];
+    [[self webView] setDelegate:self];
+}
+
+@end
