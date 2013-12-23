@@ -27,9 +27,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" image="BackgroundImage" id="50">
-                    <rect key="frame" x="4" y="4" width="760" height="1016"/>
+                    <rect key="frame" x="4" y="64" width="760" height="956"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LogoImage" id="18">
                     <rect key="frame" x="-1" y="64" width="769" height="80"/>
@@ -38,36 +39,36 @@
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome, ABC. Happy Bidding!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15">
-                    <rect key="frame" x="-1" y="151" width="767" height="26"/>
+                    <rect key="frame" x="-3" y="228" width="767" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Winning: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="16">
-                    <rect key="frame" x="238" y="185" width="135" height="26"/>
+                    <rect key="frame" x="236" y="262" width="135" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Losing: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="22">
-                    <rect key="frame" x="381" y="185" width="145" height="26"/>
+                    <rect key="frame" x="379" y="262" width="145" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="12">
-                    <rect key="frame" x="340" y="483" width="100" height="100"/>
+                    <rect key="frame" x="338" y="546" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="No Bids" image="NoBidsImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -81,11 +82,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="13">
-                    <rect key="frame" x="518" y="315" width="100" height="100"/>
+                    <rect key="frame" x="516" y="378" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-1" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="Scan" image="ScanImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -99,11 +100,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="17">
-                    <rect key="frame" x="165" y="315" width="100" height="100"/>
+                    <rect key="frame" x="163" y="378" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="Items" image="ItemsImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -114,11 +115,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="19">
-                    <rect key="frame" x="340" y="315" width="100" height="100"/>
+                    <rect key="frame" x="338" y="378" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="-19" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-24" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="Categories" image="CategoryImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -132,11 +133,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="20">
-                    <rect key="frame" x="165" y="483" width="100" height="100"/>
+                    <rect key="frame" x="163" y="546" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="-11" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="My Items" image="MyItemsImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -150,11 +151,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" id="21">
-                    <rect key="frame" x="518" y="483" width="100" height="100"/>
+                    <rect key="frame" x="516" y="546" width="100" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <inset key="titleEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="6"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-2" minY="0.0" maxX="0.0" maxY="6"/>
                     <inset key="imageEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="36"/>
                     <state key="normal" title="Fund" image="FundImage">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -168,10 +169,10 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Bidder#: ABC" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="14">
-                    <rect key="frame" x="240" y="978" width="288" height="26"/>
+                    <rect key="frame" x="239" y="978" width="288" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -180,10 +181,10 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
         </view>
         <view alpha="0.25" contentMode="scaleToFill" id="23">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
