@@ -25,13 +25,13 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" image="background_iPad.png" id="43">
-                    <rect key="frame" x="4" y="80" width="760" height="940"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" image="BackgroundImage" id="43">
+                    <rect key="frame" x="4" y="147" width="760" height="873"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="10" adjustsFontSizeToFit="NO" id="15">
-                    <rect key="frame" x="20" y="88" width="637" height="51"/>
+                    <rect key="frame" x="20" y="161" width="637" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="16"/>
                     <color key="textColor" red="0.36862745099999999" green="0.3411764706" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -107,22 +107,23 @@
                         <outlet property="delegate" destination="-1" id="35"/>
                     </connections>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Favourite_32x32.png" id="24">
-                    <rect key="frame" x="685" y="88" width="32" height="32"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="FavoriteImage" id="24">
+                    <rect key="frame" x="656" y="171" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Winning_32x32.png" id="25">
-                    <rect key="frame" x="725" y="88" width="32" height="32"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="WinningImage" id="25">
+                    <rect key="frame" x="716" y="171" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Losing_32x32.png" id="44">
-                    <rect key="frame" x="725" y="88" width="32" height="32"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="LosingImage" id="44">
+                    <rect key="frame" x="696" y="147" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo.png" id="41">
-                    <rect key="frame" x="4" y="0.0" width="760" height="80"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LogoImage" id="41">
+                    <rect key="frame" x="-72" y="0.0" width="760" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -130,10 +131,10 @@
         </view>
     </objects>
     <resources>
-        <image name="Favourite_32x32.png" width="32" height="32"/>
-        <image name="Losing_32x32.png" width="32" height="32"/>
-        <image name="Winning_32x32.png" width="32" height="32"/>
-        <image name="background_iPad.png" width="768" height="1363"/>
-        <image name="logo.png" width="216" height="88"/>
+        <image name="BackgroundImage" width="768" height="1004"/>
+        <image name="FavoriteImage" width="16" height="16"/>
+        <image name="LogoImage" width="216" height="88"/>
+        <image name="LosingImage" width="16" height="16"/>
+        <image name="WinningImage" width="16" height="16"/>
     </resources>
 </document>

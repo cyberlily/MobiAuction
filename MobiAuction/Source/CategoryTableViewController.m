@@ -56,22 +56,18 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BACK", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 250, 44)];
-        [searchBar setDelegate:self];
-        [searchBar setBarStyle:UIBarStyleBlack];
-        [searchBar setPlaceholder:NSLocalizedString(@"SEARCH", nil)];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 250, 44)];
+    [searchBar setDelegate:self];
+    [searchBar setBarStyle:UIBarStyleBlack];
+    [searchBar setPlaceholder:NSLocalizedString(@"SEARCH", nil)];
 
-        if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-            [searchBar sizeToFit];
-            [searchBar setBackgroundImage:nil];
-        }
-
-        [[self navigationItem] setTitleView:searchBar];
-        [self setSearchBar:searchBar];
-    } else {
-        [self setTitle:NSLocalizedString(@"CATEGORIES", nil)];
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        [searchBar sizeToFit];
+        [searchBar setBackgroundImage:nil];
     }
+
+    [[self navigationItem] setTitleView:searchBar];
+    [self setSearchBar:searchBar];
     
     UIView *clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [clearView setBackgroundColor:[UIColor clearColor]];
@@ -289,16 +285,11 @@
     } else {
         [[self overlayView] setAlpha:0];
 
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            CGFloat y = 0;//self.searchBar.frame.origin.y + self.searchBar.frame.size.height;
-            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-                y = 64;
-            }
-            [[self overlayView] setFrame:CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height-y)];
-        } else {
-            CGFloat y = self.searchBar.frame.origin.y + self.searchBar.frame.size.height ;
-            [[self overlayView] setFrame:CGRectMake(4, y, self.view.frame.size.width-8, self.view.frame.size.height-y)];
-		}
+        CGFloat y = 0;//self.searchBar.frame.origin.y + self.searchBar.frame.size.height;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            y = 64;
+        }
+        [[self overlayView] setFrame:CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height-y)];
         [[self view] addSubview:[self overlayView]];
 
         [UIView beginAnimations:@"FadeIn" context:nil];

@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-NSString *const kApiUrl = @"http://localhost";
-NSString *const kWebSocketUrl = @"wss://localhost";
+NSString *const kApiUrl = @"https://auction.mobiaware.com/liveauction";
+NSString *const kWebSocketUrl = @"wss://auction.mobiaware.com/liveauction/notify";
 
 NSString *const kApiAppKey = @"dia";
 NSString *const kApiSignature = @"lwe";

@@ -21,21 +21,24 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" image="background_iPad.png" id="23">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" image="BackgroundImage" id="23">
                     <rect key="frame" x="4" y="88" width="760" height="932"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5">
-                    <rect key="frame" x="130" y="107" width="508" height="62"/>
+                    <rect key="frame" x="130" y="160" width="508" height="62"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="160" maxX="0.0" maxY="-160"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9" customClass="CoolButton">
-                    <rect key="frame" x="456" y="279" width="88" height="44"/>
+                    <rect key="frame" x="456" y="280" width="88" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="280" maxX="0.0" maxY="-280"/>
                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                     <state key="normal" title="$100">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,8 +49,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8" customClass="CoolButton">
-                    <rect key="frame" x="225" y="279" width="88" height="44"/>
+                    <rect key="frame" x="225" y="280" width="88" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="280" maxX="0.0" maxY="-280"/>
                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                     <state key="normal" title="$25">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,8 +63,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7" customClass="CoolButton">
-                    <rect key="frame" x="455" y="343" width="88" height="44"/>
+                    <rect key="frame" x="455" y="345" width="88" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="345" maxX="0.0" maxY="-345"/>
                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                     <state key="normal" title="Other">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,8 +77,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6" customClass="CoolButton">
-                    <rect key="frame" x="341" y="279" width="88" height="44"/>
+                    <rect key="frame" x="341" y="280" width="88" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="280" maxX="0.0" maxY="-280"/>
                     <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                     <state key="normal" title="$50">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -82,14 +91,16 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" id="4" customClass="TextStepperField">
-                    <rect key="frame" x="224" y="342" width="204" height="46"/>
+                    <rect key="frame" x="225" y="345" width="204" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="345" maxX="0.0" maxY="-345"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo.png" id="21">
-                    <rect key="frame" x="4" y="0.0" width="760" height="80"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LogoImage" id="21">
+                    <rect key="frame" x="0.0" y="64" width="768" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -97,7 +108,7 @@
         </view>
     </objects>
     <resources>
-        <image name="background_iPad.png" width="768" height="1363"/>
-        <image name="logo.png" width="216" height="88"/>
+        <image name="BackgroundImage" width="768" height="1004"/>
+        <image name="LogoImage" width="216" height="88"/>
     </resources>
 </document>
