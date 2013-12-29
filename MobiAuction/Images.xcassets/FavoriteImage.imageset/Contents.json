@@ -3,12 +3,12 @@
     {
       "idiom" : "iphone",
       "scale" : "1x",
-      "filename" : "Favourite_16x16.png"
+      "filename" : "Favourite_24x24.png"
     },
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "Favourite_32x32.png"
+      "filename" : "Favourite_48x48.png"
     },
     {
       "idiom" : "ipad",

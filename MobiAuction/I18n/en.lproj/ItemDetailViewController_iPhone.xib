@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -43,7 +43,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.47843137250000001" green="0.68627450980000004" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </label>
                 <view contentMode="scaleToFill" id="42" customClass="TextStepperField">
@@ -67,17 +67,17 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="WinningImage" id="76">
-                    <rect key="frame" x="294" y="97" width="16" height="16"/>
+                    <rect key="frame" x="294" y="97" width="24" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="LosingImage" id="97">
-                    <rect key="frame" x="294" y="97" width="16" height="16"/>
+                    <rect key="frame" x="294" y="97" width="24" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="FavoriteImage" id="78">
-                    <rect key="frame" x="270" y="97" width="16" height="16"/>
+                    <rect key="frame" x="270" y="97" width="24" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="-64"/>
                 </imageView>
@@ -128,8 +128,8 @@
     </objects>
     <resources>
         <image name="BackgroundImage" width="320" height="568"/>
-        <image name="FavoriteImage" width="16" height="16"/>
-        <image name="LosingImage" width="16" height="16"/>
-        <image name="WinningImage" width="16" height="16"/>
+        <image name="FavoriteImage" width="24" height="24"/>
+        <image name="LosingImage" width="24" height="24"/>
+        <image name="WinningImage" width="24" height="24"/>
     </resources>
 </document>
