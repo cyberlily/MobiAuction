@@ -42,7 +42,8 @@
 "ERROR_LOGIN" = "Invalid Bidder# or Password.";
 "ERROR_ITEMNOTFOUND" = "The item could not be found. Try searching for it instead.";
 
-"WARNING_REGISTRATION" = "Unable to register for notifications.\n\nYou will continue to receive real-time updates while the application is running.";
+"WARNING_REGISTRATION" = "Unable to register for push notifications.\n\nYou will continue to receive updates while the application is running.";
+"WARNING_WEBSOCKETS" = "Unable to register for updates.\n\nPlease check your connection.";
 
 "PROMPT_BID" = "Would you like to submit a %1$@ bid for Item# %2$@?";
 "PROMPT_WATCH" = "Would you like watch Item# %@?";
