@@ -68,12 +68,6 @@
 
     [[self navigationItem] setTitleView:searchBar];
     [self setSearchBar:searchBar];
-    
-    UIView *clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
-    [clearView setBackgroundColor:[UIColor clearColor]];
-    [[self tableView] setTableHeaderView:clearView];
-    [[self tableView] setTableFooterView:clearView];
-    [[self tableView] setBackgroundView:[self backgroundView]];
 
     [[self overlayView] removeFromSuperview];
 }
@@ -116,7 +110,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40.0f;
+    return 44.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

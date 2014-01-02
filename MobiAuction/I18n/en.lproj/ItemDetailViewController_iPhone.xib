@@ -123,7 +123,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
         </view>
     </objects>
     <resources>

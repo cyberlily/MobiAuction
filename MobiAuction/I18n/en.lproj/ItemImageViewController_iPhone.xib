@@ -28,7 +28,6 @@
                     <dataDetectorType key="dataDetectorTypes"/>
                 </webView>
             </subviews>
-            <color key="backgroundColor" red="0.91764705879999997" green="0.90196078430000004" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
         </view>
     </objects>
     <resources>
