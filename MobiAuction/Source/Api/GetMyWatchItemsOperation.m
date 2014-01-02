@@ -57,7 +57,9 @@
 }
 
 - (void)itemFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)retrievedData error:(NSError *)error {
-    if (error != nil) {
+    if ((retrievedData == nil) ||
+        ([retrievedData length] == 0) ||
+        (error != nil)) {
         LogError(@"%@", [error localizedDescription]);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:retrievedData encoding:NSASCIIStringEncoding];

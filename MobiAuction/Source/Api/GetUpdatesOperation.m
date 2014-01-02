@@ -52,7 +52,9 @@
 }
 
 - (void)itemFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)retrievedData error:(NSError *)error {
-    if (error != nil) {
+    if ((retrievedData == nil) ||
+        ([retrievedData length] == 0) ||
+        (error != nil)) {
         [self apiMessage:NSLocalizedString(@"ERROR_NETWORK", nil)];
         LogError(@"%@", [error localizedDescription]);
     } else {
