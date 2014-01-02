@@ -44,6 +44,9 @@
 
 - (void)onApiOperationMessage:(NSNotification *)notification;
 - (void)updateApiOperationMessage:(NSString*)message; // update ui on main thread after NSOpertion completion
+
+-(void)setUpRechability;
+- (void)handleNetworkChange:(NSNotification *)notice;
 @end
 
 @implementation AppDelegate
@@ -52,6 +55,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize user = _user;
+@synthesize hostReachability = _hostReachability;
 
 - (void)dealloc {        
     [self unsubscribeFromWebSockets];
@@ -75,7 +79,9 @@
     
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"message" ofType:@"aiff"]];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &_notificationSound);
-    
+
+    [self setUpRechability];
+
     return YES;
 }
 
@@ -392,6 +398,33 @@
 
 - (void)updateApiOperationMessage:(NSString*)message {
     [self showMessage:message hideAfter:5.0];
+}
+
+- (void)setUpRechability {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+
+    _hostReachability = [Reachability reachabilityForInternetConnection];
+    [[self hostReachability] startNotifier];
+
+    NetworkStatus hostStatus = [[self hostReachability] currentReachabilityStatus];
+
+    if(hostStatus == NotReachable) {
+        [self unsubscribeFromWebSockets];
+    } else {
+        [self unsubscribeFromWebSockets];
+        [self subscribeToWebSockets];
+    }
+}
+
+- (void)handleNetworkChange:(NSNotification *)notice {
+    NetworkStatus hostStatus = [[self hostReachability] currentReachabilityStatus];
+
+    if(hostStatus == NotReachable) {
+        [self unsubscribeFromWebSockets];
+    } else {
+        [self unsubscribeFromWebSockets];
+        [self subscribeToWebSockets];
+    }
 }
 
 @end

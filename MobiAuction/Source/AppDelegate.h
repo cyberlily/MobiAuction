@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import "Reachability.h"
 #import "SRWebSocket.h"
 #import "User.h"
 
@@ -36,6 +37,8 @@
 @property(readwrite, nonatomic, strong) SRWebSocket *webSocketClient;
 
 @property (readwrite, nonatomic, assign) SystemSoundID notificationSound;
+
+@property(readonly, nonatomic, strong) Reachability *hostReachability;
 
 - (void)saveContext;
 
