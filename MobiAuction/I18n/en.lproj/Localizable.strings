@@ -33,14 +33,14 @@
 "FUND_RECORDED" = "Thanks for the contribution!";
 
 "BID_RECORDED" = "The bid has been recorded.\n\nBidder# %@ is currently winning.";
-"BID_WINNING" = "Woohoo :) You are now the highest bidder for Item# %@.\n\nThe item will be added to your My Items list.";
-"BID_LOSING" = "Bummer :( Your bid was not high enough for Item# %@.\n\nThe item will be added to your My Items list.";
+"BID_WINNING" = "You are now the highest bidder for Item# %@.\n\nThe item will be added to your My Items list.";
+"BID_LOSING" = "Your bid was not high enough for Item# %@.\n\nThe item will be added to your My Items list.";
 
-"ERROR_NETWORK" = "The network connection is currently unavailable or the server is not accessible. Please try again later.";
+"ERROR_NETWORK" = "The network connection is currently unavailable or the server is not accessible. Please try again.";
 "ERROR_SERVER" = "The server returned an error. Please try again.";
 "ERROR_SAVECONTEXT" = "Application error with save context.";
 "ERROR_LOGIN" = "Invalid Bidder# or Password.";
-"ERROR_ITEMNOTFOUND" = "Bummer :(. The item could not be found. Please try searching for it instead.";
+"ERROR_ITEMNOTFOUND" = "The item could not be found. Try searching for it instead.";
 
 "WARNING_REGISTRATION" = "Unable to register for notifications.\n\nYou will continue to receive real-time updates while the application is running.";
 
