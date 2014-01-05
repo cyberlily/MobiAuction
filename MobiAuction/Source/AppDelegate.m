@@ -80,8 +80,6 @@
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"message" ofType:@"aiff"]];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &_notificationSound);
 
-    [self setUpRechability];
-
     return YES;
 }
 
@@ -155,6 +153,8 @@
     [dnc addObserver:self selector:@selector(onApiOperationMessage:) name:kApiOperationMessage object:nil];
     
     [dnc postNotificationName:kRefreshView object:self userInfo:nil];
+
+    [self setUpRechability];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -347,9 +347,6 @@
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
 
-    [self unsubscribeFromWebSockets];
-    [self subscribeToWebSockets];
-    
     [self setVersion];
     
     MainViewController *mainViewController = (MainViewController *)[[[self navigationController] viewControllers] objectAtIndex:0];
@@ -384,6 +381,8 @@
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
     LogDebug(@"WebSocket closed");
     [self setWebSocketClient:nil];
+
+    [self setUpRechability];
 }
 
 - (void)setVersion {
