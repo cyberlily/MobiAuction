@@ -24,18 +24,14 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "NSManagedObjectContext+EntityUpdate.h"
-#import "Reachability.h"
 #import "RegisterDeviceOperation.h"
 #import "SignInOperation.h"
 #import "User.h"
 #import "YRDropdownView.h"
-#import "SRWebSocket.h"
+#import "Reachability.h"
 
 @interface AppDelegate (PrivateMethods)
 - (void)setVersion;
-
-- (void)subscribeToWebSockets;
-- (void)unsubscribeFromWebSockets;
 
 - (void)onWebSocketItemUpdateMessage:(NSDictionary *)event;
 - (void)onWebSocketFundUpdateMessage:(NSDictionary *)event;
@@ -45,8 +41,12 @@
 - (void)onApiOperationMessage:(NSNotification *)notification;
 - (void)updateApiOperationMessage:(NSString*)message; // update ui on main thread after NSOpertion completion
 
--(void)setUpRechability;
-- (void)handleNetworkChange:(NSNotification *)notice;
+- (void)reachabilityChanged:(NSNotification *)notification;
+
+#if TARGET_OS_IPHONE
+- (void)appDidEnterBackground:(NSNotification *)notificaiton;
+- (void)appDidBecomeActive:(NSNotification *)notification;
+#endif
 @end
 
 @implementation AppDelegate
@@ -55,16 +55,31 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize user = _user;
+
+@synthesize webSocketClient = _webSocketClient;
+@synthesize automaticallyReconnect = _automaticallyReconnect;
 @synthesize hostReachability = _hostReachability;
 
-- (void)dealloc {        
-    [self unsubscribeFromWebSockets];
-    
+#if TARGET_OS_IPHONE
+@synthesize automaticallyDisconnectInBackground = _automaticallyDisconnectInBackground;
+
+BOOL _appIsBackgrounded;
+#endif
+
+- (void)dealloc {
+	[[self hostReachability] stopNotifier];
+
+	[self setAutomaticallyReconnect:NO];
+	[self setAutomaticallyDisconnectInBackground:NO];
+
+	[self webSocketDisconnect];
+
     AudioServicesDisposeSystemSoundID(_notificationSound);
-    
+
     NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
     [dnc removeObserver:self name:kApiOperationMessage object:nil];
     [dnc removeObserver:self name:kSigninComplete object:nil];
+	[dnc removeObserver:self name:kReachabilityChangedNotification object:nil];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -76,30 +91,19 @@
     [[self window] makeKeyAndVisible];
 
     [[[self navigationController] navigationBar] setTintColor:[UIColor whiteColor]];
-    
+
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"message" ofType:@"aiff"]];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &_notificationSound);
 
     return YES;
 }
 
-- (void)subscribeToWebSockets {
-    [self setWebSocketClient:[[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kWebSocketUrl]]]];
-    [[self webSocketClient] setDelegate:self];
-    [[self webSocketClient] open];
-}
-
-- (void)unsubscribeFromWebSockets {
-    [[self webSocketClient] setDelegate:nil];
-    [[self webSocketClient] close];
-}
-
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-     NSString *deviceId = [[[deviceToken description]
-                    stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] 
-                    stringByReplacingOccurrencesOfString:@" "
-                    withString:@""];
-  
+    NSString *deviceId = [[[deviceToken description]
+                           stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
+                          stringByReplacingOccurrencesOfString:@" "
+                          withString:@""];
+
     NSManagedObjectContext *context = [self managedObjectContext];
 
     ApiOperationService *ops = [ApiOperationService instance];
@@ -121,9 +125,9 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [self showMessage:userInfo[@"aps"][@"alert"] hideAfter:5.0];
-    
+
     AudioServicesPlaySystemSound([self notificationSound]);
-    
+
     NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
     [dnc postNotificationName:kRefreshView object:self userInfo:nil];
 }
@@ -135,13 +139,13 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"reset"]) {
         [self reset];
-        
+
         [[self navigationController] popToRootViewControllerAnimated:YES];
     }
-    
+
     if ([defaults boolForKey:@"kiosk"]) {
         [dnc postNotificationName:kSigninComplete object:self userInfo:nil];
-    } else {    
+    } else {
         if ([self user] == nil) {
             LoginViewController *loginViewController = [[LoginViewController alloc] init];
             [[self navigationController] presentModalViewController:loginViewController animated:NO];
@@ -151,10 +155,8 @@
     }
 
     [dnc addObserver:self selector:@selector(onApiOperationMessage:) name:kApiOperationMessage object:nil];
-    
-    [dnc postNotificationName:kRefreshView object:self userInfo:nil];
 
-    [self setUpRechability];
+    [dnc postNotificationName:kRefreshView object:self userInfo:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -204,11 +206,11 @@
 
     NSError *error = nil;
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-    						 NSInferMappingModelAutomaticallyOption: @YES};
+                              NSInferMappingModelAutomaticallyOption: @YES};
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         // Handle error
-    }    
+    }
 
     return _persistentStoreCoordinator;
 }
@@ -225,7 +227,7 @@
     NSManagedObjectContext *context = [self managedObjectContext];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
+
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:1]; // only 1
@@ -234,7 +236,7 @@
     if ((fetchResult != nil) && ([fetchResult count] > 0)) {
         _user = (User *) fetchResult[0];
     }
-    
+
     fetchRequest = nil;
 
     return _user;
@@ -257,41 +259,41 @@
             _user = nil;
         }
     }
-    
+
     {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
+
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
-        
+
         NSArray * fetchResult = [context executeFetchRequest:fetchRequest error:nil];
         if ((fetchResult != nil) && ([fetchResult count] > 0)) {
             for (id basket in fetchResult) {
                 [context deleteObject:basket];
             }
         }
-        
+
         fetchRequest = nil;
     }
-    
+
     {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
+
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Category" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
-        
+
         NSArray * fetchResult = [context executeFetchRequest:fetchRequest error:nil];
         if ((fetchResult != nil) && ([fetchResult count] > 0)) {
             for (id basket in fetchResult) {
                 [context deleteObject:basket];
             }
         }
-        
+
         fetchRequest = nil;
     }
-        
+
     [context save:nil];
-    
+
     {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:nil forKey:@"fundacause"];
@@ -301,7 +303,7 @@
 }
 
 - (bool)showMessage:(NSString *)message hideAfter:(float)delay {
-    [YRDropdownView showDropdownInView:[self window] title:kAppName detail:message image:nil animated:YES hideAfter:delay];    
+    [YRDropdownView showDropdownInView:[self window] title:kAppName detail:message image:nil animated:YES hideAfter:delay];
     return YES;
 }
 
@@ -318,17 +320,17 @@
     NSManagedObjectContext *context = [self managedObjectContext];
     [context updateEntity:@"Item"
             forEntityType:nil
-            fromDictionary:itemsDict
-            withIdentifier:@"uid"
-            overwriting:@[@"curPrice", @"bidCount", @"watchCount", @"winner"]
-            removing:NO
-            andError:&error];
+           fromDictionary:itemsDict
+           withIdentifier:@"uid"
+              overwriting:@[@"curPrice", @"bidCount", @"watchCount", @"winner"]
+                 removing:NO
+                 andError:&error];
 
     if ([context hasChanges] && ![context save:&error]) {
         LogError(@"%@", [error localizedDescription]);
     }
 
-     NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
     [dnc postNotificationName:kRefreshView object:self userInfo:nil];
 }
 
@@ -344,45 +346,29 @@
 - (void)onSigninComplete:(NSNotification *)notification {
     NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
     [dnc removeObserver:self name:kSigninComplete object:nil];
-    
+
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
 
     [self setVersion];
-    
+
     MainViewController *mainViewController = (MainViewController *)[[[self navigationController] viewControllers] objectAtIndex:0];
     [mainViewController performSelector:@selector(updateData:) withObject:@NO afterDelay:0.0];
-}
 
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket {
-    LogDebug(@"Websocket Connected");
-}
+    _automaticallyReconnect = YES;
 
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
-    LogDebug(@":( Websocket Failed With Error %@", error);
-    [self setWebSocketClient:nil];
-}
+#if TARGET_OS_IPHONE
+    _appIsBackgrounded = NO;
+    _automaticallyDisconnectInBackground = YES;
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
-    LogDebug(@"Received \"%@\"", message);
+    [dnc addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [dnc addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+#endif
 
-    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    _hostReachability = [Reachability reachabilityForInternetConnection];
+    [[self hostReachability] startNotifier];
+    [dnc addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
-    NSMutableDictionary *fundDict = [[jsonDict valueForKey:@"liveauction-fund"] mutableCopy];
-    if (fundDict) {
-        [self onWebSocketFundUpdateMessage:fundDict];
-    }
-
-    NSMutableDictionary *itemDict = [[jsonDict valueForKey:@"liveauction-item"] mutableCopy];
-    if (itemDict) {
-        [self onWebSocketItemUpdateMessage:itemDict];
-    }
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-    LogDebug(@"WebSocket closed");
-    [self setWebSocketClient:nil];
-
-    [self setUpRechability];
+    [self webSocketConnect];
 }
 
 - (void)setVersion {
@@ -399,31 +385,112 @@
     [self showMessage:message hideAfter:5.0];
 }
 
-- (void)setUpRechability {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+- (void)setWebSocket:(SRWebSocket *)webSocket {
+	if (_webSocketClient) {
+		_webSocketClient.delegate = nil;
+		[_webSocketClient close];
+	}
 
-    _hostReachability = [Reachability reachabilityForInternetConnection];
-    [[self hostReachability] startNotifier];
+	_webSocketClient = webSocket;
+	_webSocketClient.delegate = self;
+}
 
-    NetworkStatus hostStatus = [[self hostReachability] currentReachabilityStatus];
+#if TARGET_OS_IPHONE
+- (void)appDidEnterBackground:(NSNotification *)notificaiton {
+	_appIsBackgrounded = YES;
 
-    if(hostStatus == NotReachable) {
-        [self unsubscribeFromWebSockets];
-    } else {
-        [self unsubscribeFromWebSockets];
-        [self subscribeToWebSockets];
+	if ([self automaticallyDisconnectInBackground]) {
+		[self webSocketDisconnect];
+	}
+}
+
+- (void)appDidBecomeActive:(NSNotification *)notification {
+	if (!_appIsBackgrounded) {
+		return;
+	}
+
+	_appIsBackgrounded = NO;
+
+	if ([self automaticallyDisconnectInBackground]) {
+		[self webSocketConnect];
+	}
+}
+#endif
+
+- (void)reachabilityChanged:(NSNotification *)notification {
+#if TARGET_OS_IPHONE
+	if (_appIsBackgrounded) {
+		return; // if the app is in the background, ignore the notificaiton
+	}
+#endif
+
+    if ([[self hostReachability] isReachable]) {
+		[self webSocketConnect];
+	} else {
+		[self webSocketDisconnect];
+	}
+}
+
+
+- (void)webSocketConnect {
+	if ([self isWebSocketConnected]) {
+		return;
+	}
+
+    [self setWebSocket:[[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kWebSocketUrl]]]];
+    [[self webSocketClient] setDelegate:self];
+    [[self webSocketClient] open];
+}
+
+- (void)webSocketDisconnect {
+	if (![self isWebSocketConnected]) {
+		return;
+	}
+
+    [self setWebSocket:nil];
+
+	if (!_automaticallyReconnect) {
+		return;
+	}
+
+	if ([[self hostReachability] isReachable]) {
+#if TARGET_OS_IPHONE
+		if (_appIsBackgrounded && _automaticallyDisconnectInBackground) {
+			return;
+		}
+#endif
+		[self webSocketConnect];
+	}
+}
+
+- (BOOL)isWebSocketConnected {
+	return ([self webSocketClient] != nil);
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
+    LogDebug(@"webSocket:didReceiveMessage: %@", message);
+
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+
+    NSMutableDictionary *fundDict = [[jsonDict valueForKey:@"liveauction-fund"] mutableCopy];
+    if (fundDict) {
+        [self onWebSocketFundUpdateMessage:fundDict];
+    }
+
+    NSMutableDictionary *itemDict = [[jsonDict valueForKey:@"liveauction-item"] mutableCopy];
+    if (itemDict) {
+        [self onWebSocketItemUpdateMessage:itemDict];
     }
 }
 
-- (void)handleNetworkChange:(NSNotification *)notice {
-    NetworkStatus hostStatus = [[self hostReachability] currentReachabilityStatus];
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
+    LogDebug(@"webSocket:didFailWithError: %@", error);
+    [self setWebSocket:nil];
+}
 
-    if(hostStatus == NotReachable) {
-        [self unsubscribeFromWebSockets];
-    } else {
-        [self unsubscribeFromWebSockets];
-        [self subscribeToWebSockets];
-    }
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    LogDebug(@"webSocket:didCloseWithCode: %i reason: %@ wasClean: %i", code, reason, wasClean);
+	[self webSocketDisconnect];
 }
 
 @end

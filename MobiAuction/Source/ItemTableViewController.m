@@ -333,7 +333,7 @@
      if ([[self noBidsFilter] intValue] != 0) {
         NSMutableArray *orPredicates = [[NSMutableArray alloc] init];
 
-        [orPredicates addObject:[NSPredicate predicateWithFormat:@"bidCount <  %@", @1]]; // contains match on bid count
+        [orPredicates addObject:[NSPredicate predicateWithFormat:@"bidCount <=  %@", @1]]; // contains match on bid count
  
         [andPredicates addObject:[NSCompoundPredicate orPredicateWithSubpredicates:orPredicates]];
 

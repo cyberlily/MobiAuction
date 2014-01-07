@@ -17,9 +17,9 @@
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import "User.h"
 #import "Reachability.h"
 #import "SRWebSocket.h"
-#import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, SRWebSocketDelegate> {
 
@@ -34,10 +34,10 @@
 
 @property(readonly, nonatomic, strong) User *user;
 
+@property(readwrite, nonatomic, assign) SystemSoundID notificationSound;
+
 @property(readwrite, nonatomic, strong) SRWebSocket *webSocketClient;
-
-@property (readwrite, nonatomic, assign) SystemSoundID notificationSound;
-
+@property(readwrite, nonatomic, assign) BOOL automaticallyReconnect;
 @property(readonly, nonatomic, strong) Reachability *hostReachability;
 
 - (void)saveContext;
@@ -50,5 +50,13 @@
 - (bool)hideMessage;
 
 - (void)reset;
+
+#if TARGET_OS_IPHONE
+@property (nonatomic, assign) BOOL automaticallyDisconnectInBackground;
+#endif
+
+- (void)webSocketConnect;
+- (void)webSocketDisconnect;
+- (BOOL)isWebSocketConnected;
 
 @end
