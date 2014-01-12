@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-NSString *const kApiUrl = @"http://localhost:8080/liveauction";
-NSString *const kWebSocketUrl = @"ws://localhost:8080/liveauction/notify";
+NSString *const kApiUrl = @"http://localhost:8080";
+NSString *const kWebSocketUrl = @"ws://localhost:8080/notify";
 
 NSString *const kApiAppKey = @"dia";
 NSString *const kApiSignature = @"lwe";
