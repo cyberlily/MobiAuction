@@ -16,7 +16,7 @@
 			<key>Key</key>
 			<string>kiosk</string>
 			<key>Title</key>
-			<string>Use as Kiosk</string>
+			<string>Use as kiosk</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
