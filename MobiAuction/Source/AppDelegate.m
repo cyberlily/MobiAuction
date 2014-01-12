@@ -95,6 +95,13 @@ BOOL _appIsBackgrounded;
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"message" ofType:@"aiff"]];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &_notificationSound);
 
+    // changes the color of all navigation bars on iOS 6 and lower
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    }
+
+    [[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
+
     return YES;
 }
 

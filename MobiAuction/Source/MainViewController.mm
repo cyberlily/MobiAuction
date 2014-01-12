@@ -66,8 +66,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
-
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 250, 44)];
     [searchBar setDelegate:self];
     [searchBar setBarStyle:UIBarStyleBlack];

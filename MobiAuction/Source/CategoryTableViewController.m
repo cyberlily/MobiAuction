@@ -48,10 +48,13 @@
     return self;
 }
 
+- (void)dealloc {
+    [[self tableView] setDelegate:nil];
+    [[self tableView] setDataSource:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BACK", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
