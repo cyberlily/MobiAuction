@@ -40,7 +40,7 @@
 "ERROR_SERVER" = "The server returned an error. Please try again.";
 "ERROR_SAVECONTEXT" = "Application error with save context.";
 "ERROR_LOGIN" = "Invalid Bidder# or Password.";
-"ERROR_ITEMNOTFOUND" = "The item could not be found. Try searching for it instead.";
+"ERROR_ITEMNOTFOUND" = "The item could not be found.";
 
 "WARNING_REGISTRATION" = "Unable to register for push notifications.\n\nYou will continue to receive updates while the application is running.";
 "WARNING_WEBSOCKETS" = "Unable to register for updates.\n\nPlease check your connection.";
