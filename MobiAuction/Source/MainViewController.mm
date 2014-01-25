@@ -154,8 +154,7 @@
 - (IBAction)myItemsButtonClicked:(id)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"kiosk"]) {
-        AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-        [appDelegate showMessage:NSLocalizedString(@"KIOSK_MYITEMS", nil) hideAfter:5.0];
+        // no My Items
     } else {
         ItemTableViewController *itemTableViewController = [[ItemTableViewController alloc] init];
         [itemTableViewController setCategoryFilter:nil];
@@ -285,6 +284,9 @@
         [[self bidderNumberLabel] setText:@""];
         [[self winningLabel] setText:@""];
         [[self losingLabel] setText:@""];
+
+        [[self myItemsButton] setEnabled:NO];
+        [[self myItemsButton] setHidden:YES];
     } else {
         AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
         User *user = [appDelegate user];

@@ -51,7 +51,6 @@
 "PROMPT_QRCODE" = "Center the code and wait.";
 
 "KIOSK_MODE" = "-- Kiosk Mode --";
-"KIOSK_MYITEMS" = "My Items is not available in Kiosk mode.";
 
 "WELCOME" = "Welcome, %@. Happy Bidding!";
 "BIDDER_NUMBER_WITH_VALUE" = "Bidder#: %@";
