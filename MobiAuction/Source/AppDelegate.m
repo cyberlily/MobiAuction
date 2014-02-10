@@ -27,8 +27,12 @@
 #import "RegisterDeviceOperation.h"
 #import "SignInOperation.h"
 #import "User.h"
-#import "YRDropdownView.h"
+#import "ALAlertBanner.h"
 #import "Reachability.h"
+
+double const kSecondsToShow = 10.0;
+double const kShowAnimationDuration = 0.25;
+double const kHideAnimationDuration = 0.2;
 
 @interface AppDelegate (PrivateMethods)
 - (void)setVersion;
@@ -47,6 +51,7 @@
 - (void)appDidEnterBackground:(NSNotification *)notificaiton;
 - (void)appDidBecomeActive:(NSNotification *)notification;
 #endif
+
 @end
 
 @implementation AppDelegate
@@ -127,11 +132,21 @@ BOOL _appIsBackgrounded;
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [self showMessage:NSLocalizedString(@"WARNING_REGISTRATION", nil) hideAfter:5.0];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+                                                        style:ALAlertBannerStyleFailure
+                                                        position:ALAlertBannerPositionUnderNavBar
+                                                        title:@""
+                                                        subtitle:NSLocalizedString(@"WARNING_REGISTRATION", nil)
+                                                        tappedBlock:^(ALAlertBanner *alertBanner) {
+                                                            [alertBanner hide];
+                                                        }];
+    banner.secondsToShow = 5.0;
+    [banner show];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [self showMessage:userInfo[@"aps"][@"alert"] hideAfter:5.0];
+    [self updateApiOperationMessage:userInfo[@"aps"][@"alert"]];
 
     AudioServicesPlaySystemSound([self notificationSound]);
 
@@ -176,7 +191,6 @@ BOOL _appIsBackgrounded;
         NSError *error = nil;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             LogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            [self showMessage:NSLocalizedString(@"ERROR_SAVECONTEXT", nil) hideAfter:5.0];
         }
     }
 }
@@ -309,15 +323,6 @@ BOOL _appIsBackgrounded;
     }
 }
 
-- (bool)showMessage:(NSString *)message hideAfter:(float)delay {
-    [YRDropdownView showDropdownInView:[self window] title:kAppName detail:message image:nil animated:YES hideAfter:delay];
-    return YES;
-}
-
-- (bool)hideMessage {
-    return[YRDropdownView hideDropdownInView:[self window]];
-}
-
 - (void)onWebSocketItemUpdateMessage:(NSDictionary *)event {
     NSMutableDictionary *itemsDict = [NSMutableDictionary dictionary];
     NSDictionary *itemDict = [event valueForKey:@"item"];
@@ -389,7 +394,17 @@ BOOL _appIsBackgrounded;
 }
 
 - (void)updateApiOperationMessage:(NSString*)message {
-    [self showMessage:message hideAfter:5.0];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+                                                        style:ALAlertBannerStyleWarning
+                                                        position:ALAlertBannerPositionUnderNavBar
+                                                        title:@""
+                                                        subtitle:message
+                                                        tappedBlock:^(ALAlertBanner *alertBanner) {
+                                                            [alertBanner hide];
+                                                        }];
+    banner.secondsToShow = 5.0;
+    [banner show];
 }
 
 - (void)setWebSocket:(SRWebSocket *)webSocket {

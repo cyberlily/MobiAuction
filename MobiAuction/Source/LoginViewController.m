@@ -19,6 +19,7 @@
 #import "ApiOperationService.h"
 #import "AppConstants.h"
 #import "AppDelegate.h"
+#import "ALAlertBanner.h"
 #import "DejalActivityView.h"
 #import "SignInOperation.h"
 
@@ -66,8 +67,7 @@ static int const kMaximumInputLength = 24;
 }
 
 - (IBAction)textFieldEditingBegin:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    [appDelegate hideMessage];
+    [ALAlertBanner hideAllAlertBanners];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -127,7 +127,18 @@ static int const kMaximumInputLength = 24;
 
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     if ([appDelegate user] == nil) {
-        [appDelegate showMessage:NSLocalizedString(@"ERROR_LOGIN", nil) hideAfter:5.0];
+        [ALAlertBanner hideAllAlertBanners];
+        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+                                style:ALAlertBannerStyleFailure
+                                position:ALAlertBannerPositionTop
+                                title:@""
+                                subtitle:NSLocalizedString(@"ERROR_LOGIN", nil)
+                                tappedBlock:^(ALAlertBanner *alertBanner) {
+                                    [alertBanner hide];
+                                }];
+
+        banner.secondsToShow = 10.0;
+        [banner show];
     } else {
         [[appDelegate navigationController] dismissModalViewControllerAnimated:YES];
         

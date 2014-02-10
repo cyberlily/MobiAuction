@@ -37,6 +37,7 @@
 #import "LoginViewController.h"
 #import "QRCodeReader.h"
 #import "User.h"
+#import "ALAlertBanner.h"
 
 @interface MainViewController (PrivateMethods)
 - (void)onApiOperationServiceComplete:(NSNotification *)notification;
@@ -193,7 +194,17 @@
         [[self navigationController] pushViewController:itemDetailViewController animated:YES];
     } else {
         AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-        [appDelegate showMessage:NSLocalizedString(@"ERROR_ITEMNOTFOUND", nil) hideAfter:5.0];
+
+        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+                                                            style:ALAlertBannerStyleFailure
+                                                            position:ALAlertBannerPositionUnderNavBar
+                                                            title:@""
+                                                            subtitle:NSLocalizedString(@"ERROR_ITEMNOTFOUND", nil)
+                                                            tappedBlock:^(ALAlertBanner *alertBanner) {
+                                                                [alertBanner hide];
+                                                            }];
+        banner.secondsToShow = 5.0;
+        [banner show];
     }
 }
 

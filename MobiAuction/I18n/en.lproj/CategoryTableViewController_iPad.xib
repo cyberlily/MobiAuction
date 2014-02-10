@@ -70,6 +70,6 @@
     </objects>
     <resources>
         <image name="BackgroundImage" width="768" height="1004"/>
-        <image name="LogoImage" width="216" height="88"/>
+        <image name="LogoImage" width="270" height="110"/>
     </resources>
 </document>

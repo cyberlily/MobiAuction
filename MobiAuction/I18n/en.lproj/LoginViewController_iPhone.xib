@@ -95,7 +95,7 @@
     </objects>
     <resources>
         <image name="BackgroundImage" width="320" height="568"/>
-        <image name="LogoImage" width="216" height="88"/>
+        <image name="LogoImage" width="270" height="110"/>
         <image name="RoundedTableCellBottom" width="302" height="46"/>
         <image name="RoundedTableCellTop" width="302" height="46"/>
     </resources>

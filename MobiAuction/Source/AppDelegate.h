@@ -46,9 +46,6 @@
 
 - (NSNumber*) auctionUid; // fetch from User first but support Kiosk
 
-- (bool)showMessage:(NSString *)message hideAfter:(float)delay;
-- (bool)hideMessage;
-
 - (void)reset;
 
 #if TARGET_OS_IPHONE
