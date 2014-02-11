@@ -107,6 +107,10 @@ BOOL _appIsBackgrounded;
 
     [[[self navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
 
+    NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
+    [dnc addObserver:self selector:@selector(onApiOperationMessage:) name:kApiOperationMessage object:nil];
+    [dnc addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+
     return YES;
 }
 
@@ -133,14 +137,11 @@ BOOL _appIsBackgrounded;
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:[appDelegate window]
                                                         style:ALAlertBannerStyleFailure
                                                         position:ALAlertBannerPositionUnderNavBar
-                                                        title:@""
-                                                        subtitle:NSLocalizedString(@"WARNING_REGISTRATION", nil)
-                                                        tappedBlock:^(ALAlertBanner *alertBanner) {
-                                                            [alertBanner hide];
-                                                        }];
+                                                        title:kAppName
+                                                        subtitle:NSLocalizedString(@"WARNING_REGISTRATION", nil)];
     banner.secondsToShow = 5.0;
     [banner show];
 }
@@ -175,8 +176,6 @@ BOOL _appIsBackgrounded;
             [dnc postNotificationName:kSigninComplete object:self userInfo:nil];
         }
     }
-
-    [dnc addObserver:self selector:@selector(onApiOperationMessage:) name:kApiOperationMessage object:nil];
 
     [dnc postNotificationName:kRefreshView object:self userInfo:nil];
 }
@@ -378,7 +377,6 @@ BOOL _appIsBackgrounded;
 
     _hostReachability = [Reachability reachabilityForInternetConnection];
     [[self hostReachability] startNotifier];
-    [dnc addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
     [self webSocketConnect];
 }
@@ -395,14 +393,11 @@ BOOL _appIsBackgrounded;
 
 - (void)updateApiOperationMessage:(NSString*)message {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+    ALAlertBanner *banner = [ALAlertBanner alertBannerForView:[appDelegate window]
                                                         style:ALAlertBannerStyleWarning
                                                         position:ALAlertBannerPositionUnderNavBar
-                                                        title:@""
-                                                        subtitle:message
-                                                        tappedBlock:^(ALAlertBanner *alertBanner) {
-                                                            [alertBanner hide];
-                                                        }];
+                                                        title:kAppName
+                                                        subtitle:message];
     banner.secondsToShow = 5.0;
     [banner show];
 }

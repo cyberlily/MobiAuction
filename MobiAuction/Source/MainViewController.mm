@@ -194,15 +194,11 @@
         [[self navigationController] pushViewController:itemDetailViewController animated:YES];
     } else {
         AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-
-        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:[appDelegate window]
                                                             style:ALAlertBannerStyleFailure
                                                             position:ALAlertBannerPositionUnderNavBar
-                                                            title:@""
-                                                            subtitle:NSLocalizedString(@"ERROR_ITEMNOTFOUND", nil)
-                                                            tappedBlock:^(ALAlertBanner *alertBanner) {
-                                                                [alertBanner hide];
-                                                            }];
+                                                            title:kAppName
+                                                            subtitle:NSLocalizedString(@"ERROR_ITEMNOTFOUND", nil)];
         banner.secondsToShow = 5.0;
         [banner show];
     }

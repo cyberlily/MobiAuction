@@ -28,13 +28,13 @@
 
 "SEARCH" = "Search by Item# or keywords";
 
-"WATCH_RECORDED" = "Item# %@ has been added your My Items list.";
+"WATCH_RECORDED" = "\'%@\' has been added to My Items.";
 
 "FUND_RECORDED" = "Thanks for the contribution!";
 
-"BID_RECORDED" = "The bid has been recorded.\n\nBidder# %@ is currently winning.";
-"BID_WINNING" = "You are now the highest bidder for Item# %@.\n\nThe item will be added to your My Items list.";
-"BID_LOSING" = "Your bid was not high enough for Item# %@.\n\nThe item will be added to your My Items list.";
+"BID_RECORDED" = "The bid has been recorded. Bidder# %@ is currently winning.";
+"BID_WINNING" = "You are the highest bidder for \'%@.\'";
+"BID_LOSING" = "Your bid was not high enough for \'%@.\'";
 
 "ERROR_NETWORK" = "The network connection is currently unavailable or the server is not accessible. Please try again.";
 "ERROR_SERVER" = "The server returned an error. Please try again.";
@@ -42,8 +42,8 @@
 "ERROR_LOGIN" = "Invalid Bidder# or Password.";
 "ERROR_ITEMNOTFOUND" = "The item could not be found.";
 
-"WARNING_REGISTRATION" = "Unable to register for push notifications.\n\nYou will continue to receive updates while the application is running.";
-"WARNING_WEBSOCKETS" = "Unable to register for updates.\n\nPlease check your connection.";
+"WARNING_REGISTRATION" = "Unable to register for push notifications. You will continue to receive updates while the application is running.";
+"WARNING_WEBSOCKETS" = "Unable to register for updates. Please check your connection.";
 
 "PROMPT_BID" = "Would you like to submit a %1$@ bid for Item# %2$@?";
 "PROMPT_WATCH" = "Would you like watch Item# %@?";

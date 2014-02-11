@@ -127,17 +127,13 @@ static int const kMaximumInputLength = 24;
 
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     if ([appDelegate user] == nil) {
-        [ALAlertBanner hideAllAlertBanners];
-        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:appDelegate.window
+        ALAlertBanner *banner = [ALAlertBanner alertBannerForView:[appDelegate window]
                                 style:ALAlertBannerStyleFailure
                                 position:ALAlertBannerPositionTop
-                                title:@""
-                                subtitle:NSLocalizedString(@"ERROR_LOGIN", nil)
-                                tappedBlock:^(ALAlertBanner *alertBanner) {
-                                    [alertBanner hide];
-                                }];
+                                title:kAppName
+                                subtitle:NSLocalizedString(@"ERROR_LOGIN", nil)];
 
-        banner.secondsToShow = 10.0;
+        banner.secondsToShow = 0.0;
         [banner show];
     } else {
         [[appDelegate navigationController] dismissModalViewControllerAnimated:YES];
