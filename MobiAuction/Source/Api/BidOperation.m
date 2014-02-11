@@ -90,9 +90,9 @@
                 [itemDict setValue:@YES forKey:@"hasWatch"];
                 
                 if([[self biddernumber] isEqualToString:[itemDict valueForKey:@"winner"]]) {
-                    msg = [NSString stringWithFormat:NSLocalizedString(@"BID_WINNING", nil), [itemDict valueForKey:@"itemNumber"]];
+                    msg = [NSString stringWithFormat:NSLocalizedString(@"BID_WINNING", nil), [itemDict valueForKey:@"name"]];
                 } else {
-                    msg = [NSString stringWithFormat:NSLocalizedString(@"BID_LOSING", nil), [itemDict valueForKey:@"itemNumber"]];
+                    msg = [NSString stringWithFormat:NSLocalizedString(@"BID_LOSING", nil), [itemDict valueForKey:@"name"]];
                 }
             }
 

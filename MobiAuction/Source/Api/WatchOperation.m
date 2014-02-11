@@ -76,7 +76,7 @@
             NSMutableDictionary *itemDict = [[jsonDict valueForKey:@"item"] mutableCopy];
             [itemDict setValue:@YES forKey:@"hasWatch"];
             
-            NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"WATCH_RECORDED", nil), [itemDict valueForKey:@"itemNumber"]];
+            NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"WATCH_RECORDED", nil), [itemDict valueForKey:@"name"]];
 
             [itemsDict setValue:itemDict forKey:itemDict[@"uid"]];
             

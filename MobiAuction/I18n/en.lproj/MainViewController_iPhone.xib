@@ -187,7 +187,7 @@
         <image name="CategoryImage" width="32" height="32"/>
         <image name="FundImage" width="32" height="32"/>
         <image name="ItemsImage" width="32" height="32"/>
-        <image name="LogoImage" width="216" height="88"/>
+        <image name="LogoImage" width="270" height="110"/>
         <image name="MyItemsImage" width="32" height="32"/>
         <image name="NoBidsImage" width="32" height="32"/>
         <image name="ScanImage" width="32" height="32"/>
